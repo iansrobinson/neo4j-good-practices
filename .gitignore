@@ -1,0 +1,11 @@
+*~
+.DS_Store
+target
+.idea
+*.iml
+.project
+.classpath
+.settings
+lib
+out
+.repo
