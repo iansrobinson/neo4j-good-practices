@@ -18,27 +18,23 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.server.CommunityNeoServer;
 import org.neo4j.server.helpers.ServerBuilder;
 
 public class ColleagueFinderExtensionTest
 {
     private static CommunityNeoServer server;
-    private static GraphDatabaseService db;
 
     @BeforeClass
     public static void startServer() throws IOException
     {
         server = ServerBuilder.server()
                 .withThirdPartyJaxRsPackage(
-                        "org.neo4j.good_practices",
-                        "/colleagues" )
+                        "org.neo4j.good_practices", "/colleagues" )
                 .build();
         server.start();
 
-        db = server.getDatabase().getGraph();
-        ExampleGraph.populate( db );
+        ExampleGraph.populate( server.getDatabase().getGraph() );
     }
 
     @AfterClass
