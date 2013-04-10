@@ -2,7 +2,6 @@ package org.neo4j.good_practices;
 
 import org.neo4j.cypher.javacompat.ExecutionEngine;
 import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.test.TestGraphDatabaseFactory;
 
 public class ExampleGraph
 {

@@ -13,7 +13,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.neo4j.cypher.javacompat.ExecutionResult;
 import org.neo4j.graphdb.GraphDatabaseService;
 
 @Path("/similar-skills")
@@ -31,7 +30,7 @@ public class ColleagueFinderExtension
     @Path("/{name}")
     public Response getDistance( @PathParam("name") String name ) throws IOException
     {
-        Iterator<Map<String,Object>> results = colleagueFinder.findFor( name );
+        Iterator<Map<String, Object>> results = colleagueFinder.findFor( name );
         String json = new ObjectMapper().writeValueAsString( results );
 
         return Response.ok().entity( json ).build();
