@@ -1,8 +1,6 @@
 package org.neo4j.good_practices;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,6 +16,7 @@ import org.neo4j.graphdb.GraphDatabaseService;
 @Path("/similar-skills")
 public class ColleagueFinderExtension
 {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
     private final ColleagueFinder colleagueFinder;
 
     public ColleagueFinderExtension( @Context GraphDatabaseService db )
@@ -30,8 +29,8 @@ public class ColleagueFinderExtension
     @Path("/{name}")
     public Response getDistance( @PathParam("name") String name ) throws IOException
     {
-        Iterator<Map<String, Object>> results = colleagueFinder.findFor( name );
-        String json = new ObjectMapper().writeValueAsString( results );
+        String json = MAPPER
+                .writeValueAsString( colleagueFinder.findFor( name ) );
 
         return Response.ok().entity( json ).build();
     }
