@@ -19,10 +19,8 @@ public class ColleagueFinder
     public Iterator<Map<String, Object>> findFor( String name )
     {
         String cypher =
-                "MATCH (me:person)-[:WORKS_FOR]->(company),\n" +
-                "      (me)-[:HAS_SKILL]->(skill),\n" +
-                "      (colleague)-[:WORKS_FOR]->(company),\n" +
-                "      (colleague)-[:HAS_SKILL]->(skill)\n" +
+                "MATCH (company)<-[:WORKS_FOR]-(me:person)-[:HAS_SKILL]->(skill),\n" +
+                "      (company)<-[:WORKS_FOR]-(colleague)-[:HAS_SKILL]->(skill)\n" +
                 "WHERE  me.name = {name}\n" +
                 "RETURN colleague.name AS name,\n" +
                 "       count(skill) AS score,\n" +
