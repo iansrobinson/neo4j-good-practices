@@ -27,7 +27,7 @@ public class ColleagueFinderExtension
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{name}")
-    public Response getDistance( @PathParam("name") String name ) throws IOException
+    public Response getColleagues( @PathParam("name") String name ) throws IOException
     {
         String json = MAPPER
                 .writeValueAsString( colleagueFinder.findFor( name ) );
