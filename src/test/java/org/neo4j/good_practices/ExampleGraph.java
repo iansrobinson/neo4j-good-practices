@@ -5,7 +5,7 @@ import org.neo4j.graphdb.GraphDatabaseService;
 
 public class ExampleGraph
 {
-    public static void populate( GraphDatabaseService db )
+    public static void populateWithSmallGraph( GraphDatabaseService db )
     {
         ExecutionEngine engine = new ExecutionEngine( db );
 

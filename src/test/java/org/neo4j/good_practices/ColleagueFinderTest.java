@@ -21,7 +21,7 @@ public class ColleagueFinderTest
     public static void init()
     {
         db = new TestGraphDatabaseFactory().newImpermanentDatabase();
-        ExampleGraph.populate( db );
+        ExampleGraph.populateWithSmallGraph( db );
 
         finder = new ColleagueFinder( db );
     }
