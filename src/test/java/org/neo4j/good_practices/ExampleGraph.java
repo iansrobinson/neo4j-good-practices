@@ -9,14 +9,14 @@ public class ExampleGraph
     {
         ExecutionEngine engine = new ExecutionEngine( db );
 
-        String cypher = "CREATE sue:person VALUES {name:'Sue'},\n" +
-                "       bill:person VALUES {name:'Bill'},\n" +
-                "       lucy:person VALUES {name:'Lucy'},\n" +
-                "       acme:company VALUES {name:'Acme'},\n" +
-                "       java:skill VALUES {name:'Java'},\n" +
-                "       csharp:skill VALUES {name:'C#'},\n" +
-                "       neo4j:skill VALUES {name:'Neo4j'},\n" +
-                "       ruby:skill VALUES {name:'Ruby'},\n" +
+        String cypher = "CREATE (sue:person {name:'Sue'}),\n" +
+                "       (bill:person {name:'Bill'}),\n" +
+                "       (lucy:person {name:'Lucy'}),\n" +
+                "       (acme:company {name:'Acme'}),\n" +
+                "       (java:skill {name:'Java'}),\n" +
+                "       (csharp:skill {name:'C#'}),\n" +
+                "       (neo4j:skill {name:'Neo4j'}),\n" +
+                "       (ruby:skill {name:'Ruby'}),\n" +
                 "       (sue)-[:WORKS_FOR]->(acme),\n" +
                 "       (bill)-[:WORKS_FOR]->(acme),\n" +
                 "       (lucy)-[:WORKS_FOR]->(acme),\n" +
