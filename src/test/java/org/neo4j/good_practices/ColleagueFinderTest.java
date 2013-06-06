@@ -1,16 +1,17 @@
 package org.neo4j.good_practices;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
 import java.util.Iterator;
 import java.util.Map;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.test.TestGraphDatabaseFactory;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class ColleagueFinderTest
 {
@@ -36,7 +37,7 @@ public class ColleagueFinderTest
     public void shouldFindColleaguesWithSimilarSkills() throws Exception
     {
         // when
-        Iterator<Map<String, Object>> results = finder.findFor( "Sue" );
+        Iterator<Map<String, Object>> results = finder.findColleaguesFor( "Ian" );
 
         // then
         assertEquals( "Lucy", results.next().get( "name" ) );

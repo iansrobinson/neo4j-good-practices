@@ -1,18 +1,19 @@
 package org.neo4j.good_practices;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.hasItems;
-
 import java.util.Iterator;
 import java.util.Map;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.test.TestGraphDatabaseFactory;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.hasItems;
 
 public class NewOpportunitiesForConnectedData
 {
@@ -39,7 +40,7 @@ public class NewOpportunitiesForConnectedData
     public void shouldFindColleaguesWithSimilarSkills() throws Exception
     {
         // when
-        Iterator<Map<String, Object>> results = finder.findFor( "Ian" );
+        Iterator<Map<String, Object>> results = finder.findColleaguesFor( "Ian" );
 
         // then
         Map<String, Object> row = results.next();
@@ -48,6 +49,41 @@ public class NewOpportunitiesForConnectedData
 
         row = results.next();
         assertEquals( "Charlie", row.get( "name" ) );
+        assertThat( (Iterable<String>) row.get( "skills" ), hasItems( "Neo4j" ) );
+
+        assertFalse( results.hasNext() );
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void shouldFindPeopleWithSimilarSkills() throws Exception
+    {
+        // when
+        Iterator<Map<String, Object>> results = finder.findPeopleFor( "Ian" );
+
+        // then
+        Map<String, Object> row = results.next();
+        assertEquals( "Arnold", row.get( "name" ) );
+        assertEquals( "Startup, Ltd", row.get( "company" ) );
+        assertEquals( 3L, row.get( "score" ) );
+        assertThat( (Iterable<String>) row.get( "skills" ), hasItems( "Java", "Neo4j", "REST" ) );
+
+        row = results.next();
+        assertEquals( "Ben", row.get( "name" ) );
+        assertEquals( "Acme, Inc", row.get( "company" ) );
+        assertEquals( 2L, row.get( "score" ) );
+        assertThat( (Iterable<String>) row.get( "skills" ), hasItems( "Neo4j", "REST" ) );
+
+        row = results.next();
+        assertEquals( "Gordon", row.get( "name" ) );
+        assertEquals( "Startup, Ltd", row.get( "company" ) );
+        assertEquals( 1L, row.get( "score" ) );
+        assertThat( (Iterable<String>) row.get( "skills" ), hasItems( "Neo4j" ) );
+
+        row = results.next();
+        assertEquals( "Charlie", row.get( "name" ) );
+        assertEquals( "Acme, Inc", row.get( "company" ) );
+        assertEquals( 1L, row.get( "score" ) );
         assertThat( (Iterable<String>) row.get( "skills" ), hasItems( "Neo4j" ) );
 
         assertFalse( results.hasNext() );

@@ -1,13 +1,8 @@
 package org.neo4j.good_practices;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.hasItems;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
 import javax.ws.rs.core.MediaType;
 
 import com.sun.jersey.api.client.Client;
@@ -18,8 +13,13 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import org.neo4j.server.CommunityNeoServer;
 import org.neo4j.server.helpers.ServerBuilder;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.hasItems;
 
 public class ColleagueFinderExtensionTest
 {
@@ -50,7 +50,7 @@ public class ColleagueFinderExtensionTest
         Client client = Client.create( new DefaultClientConfig() );
 
         WebResource resource = client
-                .resource( "http://localhost:7474/colleagues/similar-skills/Sue" );
+                .resource( "http://localhost:7474/colleagues/similar-skills/Ian" );
         ClientResponse response = resource
                 .accept( MediaType.APPLICATION_JSON )
                 .get( ClientResponse.class );

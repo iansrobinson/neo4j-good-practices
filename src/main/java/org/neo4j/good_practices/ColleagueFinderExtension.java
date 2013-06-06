@@ -30,7 +30,7 @@ public class ColleagueFinderExtension
     public Response getColleagues( @PathParam("name") String name ) throws IOException
     {
         String json = MAPPER
-                .writeValueAsString( colleagueFinder.findFor( name ) );
+                .writeValueAsString( colleagueFinder.findColleaguesFor( name ) );
 
         return Response.ok().entity( json ).build();
     }
