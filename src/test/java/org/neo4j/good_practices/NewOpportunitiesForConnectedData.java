@@ -7,6 +7,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import org.neo4j.cypher.javacompat.ExecutionEngine;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.test.TestGraphDatabaseFactory;
 
@@ -26,7 +27,7 @@ public class NewOpportunitiesForConnectedData
         db = new TestGraphDatabaseFactory().newImpermanentDatabase();
         ExampleGraph.populateWithLargeGraph( db );
 
-        finder = new ColleagueFinder( db );
+        finder = new ColleagueFinder( new ExecutionEngine( db ) );
     }
 
     @AfterClass

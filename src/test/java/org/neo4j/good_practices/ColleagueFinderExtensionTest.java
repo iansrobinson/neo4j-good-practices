@@ -34,7 +34,7 @@ public class ColleagueFinderExtensionTest
                 .build();
         server.start();
 
-        ExampleGraph.populateWithSmallGraph( server.getDatabase().getGraph() );
+        ExampleGraph.populate( server.getDatabase().getGraph() );
     }
 
     @AfterClass

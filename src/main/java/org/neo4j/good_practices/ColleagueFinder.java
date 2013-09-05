@@ -5,16 +5,14 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.neo4j.cypher.javacompat.ExecutionEngine;
-import org.neo4j.cypher.javacompat.ExecutionResult;
-import org.neo4j.graphdb.GraphDatabaseService;
 
 public class ColleagueFinder
 {
-    private final ExecutionEngine cypherEngine;
+    private final ExecutionEngine executionEngine;
 
-    public ColleagueFinder( GraphDatabaseService db )
+    public ColleagueFinder( ExecutionEngine executionEngine )
     {
-        this.cypherEngine = new ExecutionEngine( db );
+        this.executionEngine = executionEngine;
     }
 
     public Iterator<Map<String, Object>> findColleaguesFor( String name )
@@ -31,10 +29,7 @@ public class ColleagueFinder
         Map<String, Object> params = new HashMap<String, Object>();
         params.put( "name", name );
 
-        ExecutionResult result = cypherEngine.execute( cypher, params );
-        System.out.println( result.dumpToString() );
-
-        return cypherEngine.execute( cypher, params ).iterator();
+        return executionEngine.execute( cypher, params ).iterator();
     }
 
     public Iterator<Map<String, Object>> findPeopleFor( String name )
@@ -52,10 +47,7 @@ public class ColleagueFinder
         Map<String, Object> params = new HashMap<String, Object>();
         params.put( "name", name );
 
-        ExecutionResult result = cypherEngine.execute( cypher, params );
-        System.out.println( result.dumpToString() );
-
-        return cypherEngine.execute( cypher, params ).iterator();
+        return executionEngine.execute( cypher, params ).iterator();
     }
 
     public Iterator<Map<String, Object>> findWithMatchingSkills( String name, String... skills )
@@ -76,9 +68,6 @@ public class ColleagueFinder
         params.put( "name", name );
         params.put( "skills", skills );
 
-        ExecutionResult result = cypherEngine.execute( cypher, params );
-        System.out.println( result.dumpToString() );
-
-        return cypherEngine.execute( cypher, params ).iterator();
+        return executionEngine.execute( cypher, params ).iterator();
     }
 }
