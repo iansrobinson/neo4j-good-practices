@@ -15,7 +15,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import org.neo4j.server.CommunityNeoServer;
-import org.neo4j.server.helpers.ServerBuilder;
+import org.neo4j.server.helpers.CommunityServerBuilder;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -28,7 +28,7 @@ public class ColleagueFinderExtensionTest
     @BeforeClass
     public static void startServer() throws IOException
     {
-        server = ServerBuilder.server()
+        server = CommunityServerBuilder.server()
                 .withThirdPartyJaxRsPackage(
                         "org.neo4j.good_practices", "/colleagues" )
                 .build();

@@ -31,7 +31,7 @@ public class ColleagueFinderExtension
     {
         String json = MAPPER
                 .writeValueAsString( colleagueFinder.findColleaguesFor( name ) );
-
+        System.out.println(json);
         return Response.ok().entity( json ).build();
     }
 }
