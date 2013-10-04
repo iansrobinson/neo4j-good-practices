@@ -3,8 +3,8 @@ package org.neo4j.good_practices;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import org.neo4j.cypher.javacompat.ExecutionEngine;
@@ -16,11 +16,11 @@ import static org.junit.Assert.assertFalse;
 
 public class ColleagueFinderTest
 {
-    private static GraphDatabaseService db;
-    private static ColleagueFinder finder;
+    private GraphDatabaseService db;
+    private ColleagueFinder finder;
 
-    @BeforeClass
-    public static void init()
+    @Before
+    public void init()
     {
         db = new TestGraphDatabaseFactory().newImpermanentDatabase();
         ExampleGraph.populate( db );
@@ -28,8 +28,8 @@ public class ColleagueFinderTest
         finder = new ColleagueFinder( new ExecutionEngine( db ) );
     }
 
-    @AfterClass
-    public static void shutdown()
+    @After
+    public void shutdown()
     {
         db.shutdown();
     }

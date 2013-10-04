@@ -10,8 +10,8 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import org.neo4j.server.CommunityNeoServer;
@@ -23,10 +23,10 @@ import static org.junit.matchers.JUnitMatchers.hasItems;
 
 public class ColleagueFinderExtensionTest
 {
-    private static CommunityNeoServer server;
+    private CommunityNeoServer server;
 
-    @BeforeClass
-    public static void startServer() throws IOException
+    @Before
+    public void startServer() throws IOException
     {
         server = CommunityServerBuilder.server()
                 .withThirdPartyJaxRsPackage(
@@ -37,8 +37,8 @@ public class ColleagueFinderExtensionTest
         ExampleGraph.populate( server.getDatabase().getGraph() );
     }
 
-    @AfterClass
-    public static void stopServer()
+    @After
+    public void stopServer()
     {
         server.stop();
     }
