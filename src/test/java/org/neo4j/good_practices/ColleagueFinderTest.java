@@ -1,5 +1,6 @@
 package org.neo4j.good_practices;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -7,31 +8,29 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.neo4j.cypher.javacompat.ExecutionEngine;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.test.TestGraphDatabaseFactory;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class ColleagueFinderTest
 {
-    private GraphDatabaseService db;
+    private DatabaseFixture dbFixture;
     private ColleagueFinder finder;
 
     @Before
     public void init()
     {
-        db = new TestGraphDatabaseFactory().newImpermanentDatabase();
-        ExampleGraph.populate( db );
+        dbFixture = DatabaseFixture.createDatabase()
+                .populateWith( ExampleData.smallGraph )
+                .applyMigrations( Collections.<Migration>emptyList() );
 
-        finder = new ColleagueFinder( new ExecutionEngine( db ) );
+
+        finder = new ColleagueFinder( dbFixture.executionEngine() );
     }
 
     @After
     public void shutdown()
     {
-        db.shutdown();
+        dbFixture.shutdown();
     }
 
     @Test

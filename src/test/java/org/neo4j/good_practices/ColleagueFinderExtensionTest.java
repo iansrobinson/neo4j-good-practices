@@ -1,6 +1,7 @@
 package org.neo4j.good_practices;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import javax.ws.rs.core.MediaType;
@@ -34,7 +35,9 @@ public class ColleagueFinderExtensionTest
                 .build();
         server.start();
 
-        ExampleGraph.populate( server.getDatabase().getGraph() );
+        DatabaseFixture.useExistingDatabase( server.getDatabase().getGraph() )
+                .populateWith( ExampleData.smallGraph )
+                .applyMigrations(Collections.<Migration>emptyList()  );
     }
 
     @After
@@ -44,7 +47,7 @@ public class ColleagueFinderExtensionTest
     }
 
     @Test
-    @SuppressWarnings( "unchecked" )
+    @SuppressWarnings("unchecked")
     public void shouldReturnColleaguesWithSimilarSkills() throws Exception
     {
         Client client = Client.create( new DefaultClientConfig() );
@@ -55,7 +58,8 @@ public class ColleagueFinderExtensionTest
                 .accept( MediaType.APPLICATION_JSON )
                 .get( ClientResponse.class );
 
-        List<Map<String, Object>> results = new ObjectMapper().readValue( response.getEntity( String.class ), List.class );
+        List<Map<String, Object>> results = new ObjectMapper().readValue( response.getEntity( String.class ),
+                List.class );
 
         assertEquals( 200, response.getStatus() );
         assertEquals( MediaType.APPLICATION_JSON, response.getHeaders().get( "Content-Type" ).get( 0 ) );

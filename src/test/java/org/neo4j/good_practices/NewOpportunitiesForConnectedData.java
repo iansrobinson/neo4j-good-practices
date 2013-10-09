@@ -1,15 +1,12 @@
 package org.neo4j.good_practices;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import org.neo4j.cypher.javacompat.ExecutionEngine;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.test.TestGraphDatabaseFactory;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -18,22 +15,23 @@ import static org.junit.matchers.JUnitMatchers.hasItems;
 
 public class NewOpportunitiesForConnectedData
 {
-    private static GraphDatabaseService db;
+    private static DatabaseFixture dbFixture;
     private static ColleagueFinder finder;
 
     @BeforeClass
     public static void init()
     {
-        db = new TestGraphDatabaseFactory().newImpermanentDatabase();
-        ExampleGraph.populateWithLargeGraph( db );
+        dbFixture = DatabaseFixture.createDatabase()
+                .populateWith( ExampleData.largeGraph )
+                .applyMigrations( Collections.<Migration>emptyList() );
 
-        finder = new ColleagueFinder( new ExecutionEngine( db ) );
+        finder = new ColleagueFinder( dbFixture.executionEngine() );
     }
 
     @AfterClass
     public static void shutdown()
     {
-        db.shutdown();
+        dbFixture.shutdown();
     }
 
     @Test
