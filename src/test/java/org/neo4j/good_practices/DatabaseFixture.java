@@ -29,7 +29,6 @@ public class DatabaseFixture
         this.db = db;
         this.executionEngine = new ExecutionEngine( db );
 
-        deleteReferenceNode();
         populateWith( initialContents );
         applyMigrations( migrations );
     }
@@ -47,11 +46,6 @@ public class DatabaseFixture
     public void shutdown()
     {
         db.shutdown();
-    }
-
-    private void deleteReferenceNode()
-    {
-        populateWith( "START n=node(0) DELETE n" );
     }
 
     private ExecutionResult populateWith( String cypher )
