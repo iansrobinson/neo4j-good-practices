@@ -11,6 +11,8 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
+import org.neo4j.cypher.javacompat.ExecutionEngine;
+import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.server.database.CypherExecutor;
 
 @Path("/similar-skills")
@@ -23,6 +25,11 @@ public class ColleagueFinderExtension
     {
         this.colleagueFinder = new ColleagueFinder( cypherExecutor.getExecutionEngine() );
     }
+
+//    public ColleagueFinderExtension( @Context GraphDatabaseService db )
+//    {
+//        this.colleagueFinder = new ColleagueFinder( new ExecutionEngine( db ) );
+//    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
