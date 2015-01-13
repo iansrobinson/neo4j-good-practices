@@ -15,6 +15,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.neo4j.harness.ServerControls;
+import org.neo4j.harness.TestServerBuilders;
 import org.neo4j.server.CommunityNeoServer;
 import org.neo4j.server.helpers.CommunityServerBuilder;
 
@@ -24,27 +26,22 @@ import static org.junit.matchers.JUnitMatchers.hasItems;
 
 public class ColleagueFinderExtensionTest
 {
-    private CommunityNeoServer server;
+    private ServerControls server;
 
     @Before
     public void startServer() throws IOException
     {
-        server = CommunityServerBuilder.server()
-                .withThirdPartyJaxRsPackage(
-                        "org.neo4j.good_practices", "/colleagues" )
-                .withSecurityRules( "org.neo4j.good_practices.SecurityRuleA", "org.neo4j.good_practices.SecurityRuleB" )
-                .build();
-        server.start();
-
-        DatabaseFixture.useExistingDatabase( server.getDatabase().getGraph() )
-                .populateWith( ExampleData.smallGraph )
-                .applyMigrations(Collections.<Migration>emptyList()  );
+        server = TestServerBuilders.newInProcessBuilder()
+                .withExtension( "/colleagues", ColleagueFinderExtension.class )
+                .withFixture( ExampleData.smallGraph )
+                .newServer();
+        System.out.println(server.httpURI());
     }
 
     @After
     public void stopServer()
     {
-        server.stop();
+        server.close();
     }
 
     @Test
