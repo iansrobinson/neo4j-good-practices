@@ -26,11 +26,6 @@ public class ColleagueFinderExtension
         this.colleagueFinder = new ColleagueFinder( cypherExecutor.getExecutionEngine() );
     }
 
-//    public ColleagueFinderExtension( @Context GraphDatabaseService db )
-//    {
-//        this.colleagueFinder = new ColleagueFinder( new ExecutionEngine( db ) );
-//    }
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{name}")
@@ -38,7 +33,7 @@ public class ColleagueFinderExtension
     {
         String json = MAPPER
                 .writeValueAsString( colleagueFinder.findColleaguesFor( name ) );
-        System.out.println(json);
+
         return Response.ok().entity( json ).build();
     }
 }

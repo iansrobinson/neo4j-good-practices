@@ -32,6 +32,7 @@ public class ColleagueFinderExtensionTest
         server = CommunityServerBuilder.server()
                 .withThirdPartyJaxRsPackage(
                         "org.neo4j.good_practices", "/colleagues" )
+                .withSecurityRules( "org.neo4j.good_practices.SecurityRuleA", "org.neo4j.good_practices.SecurityRuleB" )
                 .build();
         server.start();
 
@@ -58,10 +59,11 @@ public class ColleagueFinderExtensionTest
                 .accept( MediaType.APPLICATION_JSON )
                 .get( ClientResponse.class );
 
+        assertEquals( 200, response.getStatus() );
+
         List<Map<String, Object>> results = new ObjectMapper().readValue( response.getEntity( String.class ),
                 List.class );
 
-        assertEquals( 200, response.getStatus() );
         assertEquals( MediaType.APPLICATION_JSON, response.getHeaders().get( "Content-Type" ).get( 0 ) );
         assertEquals( "Lucy", results.get( 0 ).get( "name" ) );
         assertThat( (Iterable<String>) results.get( 0 ).get( "skills" ), hasItems( "Java", "Neo4j" ) );
