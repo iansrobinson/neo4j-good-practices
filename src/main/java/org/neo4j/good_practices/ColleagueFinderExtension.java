@@ -11,9 +11,7 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import org.neo4j.cypher.javacompat.ExecutionEngine;
 import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.server.database.CypherExecutor;
 
 @Path("/similar-skills")
 public class ColleagueFinderExtension
@@ -21,9 +19,9 @@ public class ColleagueFinderExtension
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private final ColleagueFinder colleagueFinder;
 
-    public ColleagueFinderExtension( @Context CypherExecutor cypherExecutor )
+    public ColleagueFinderExtension( @Context GraphDatabaseService db )
     {
-        this.colleagueFinder = new ColleagueFinder( cypherExecutor.getExecutionEngine() );
+        this.colleagueFinder = new ColleagueFinder( db );
     }
 
     @GET
@@ -31,8 +29,7 @@ public class ColleagueFinderExtension
     @Path("/{name}")
     public Response getColleagues( @PathParam("name") String name ) throws IOException
     {
-        String json = MAPPER
-                .writeValueAsString( colleagueFinder.findColleaguesFor( name ) );
+        String json = MAPPER.writeValueAsString( colleagueFinder.findColleaguesFor( name ) );
 
         return Response.ok().entity( json ).build();
     }

@@ -23,8 +23,7 @@ public class ColleagueFinderTest
                 .populateWith( ExampleData.smallGraph )
                 .applyMigrations( Collections.<Migration>emptyList() );
 
-
-        finder = new ColleagueFinder( dbFixture.executionEngine() );
+        finder = new ColleagueFinder( dbFixture.database() );
     }
 
     @After

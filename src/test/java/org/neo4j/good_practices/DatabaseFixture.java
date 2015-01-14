@@ -2,9 +2,8 @@ package org.neo4j.good_practices;
 
 import java.util.Collections;
 
-import org.neo4j.cypher.javacompat.ExecutionEngine;
-import org.neo4j.cypher.javacompat.ExecutionResult;
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Result;
 import org.neo4j.test.TestGraphDatabaseFactory;
 
 public class DatabaseFixture
@@ -22,12 +21,10 @@ public class DatabaseFixture
     }
 
     private final GraphDatabaseService db;
-    private final ExecutionEngine executionEngine;
 
     private DatabaseFixture( GraphDatabaseService db, String initialContents, Iterable<Migration> migrations )
     {
         this.db = db;
-        this.executionEngine = new ExecutionEngine( db );
 
         populateWith( initialContents );
         applyMigrations( migrations );
@@ -38,19 +35,14 @@ public class DatabaseFixture
         return db;
     }
 
-    public ExecutionEngine executionEngine()
-    {
-        return executionEngine;
-    }
-
     public void shutdown()
     {
         db.shutdown();
     }
 
-    private ExecutionResult populateWith( String cypher )
+    private Result populateWith( String cypher )
     {
-        return executionEngine.execute( cypher );
+        return db.execute( cypher );
     }
 
     private void applyMigrations( Iterable<Migration> migrations )

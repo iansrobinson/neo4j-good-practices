@@ -4,15 +4,16 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.neo4j.cypher.javacompat.ExecutionEngine;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Result;
 
 public class ColleagueFinder
 {
-    private final ExecutionEngine executionEngine;
+    private final GraphDatabaseService db;
 
-    public ColleagueFinder( ExecutionEngine executionEngine )
+    public ColleagueFinder( GraphDatabaseService db )
     {
-        this.executionEngine = executionEngine;
+        this.db = db;
     }
 
     public Iterator<Map<String, Object>> findColleaguesFor( String name )
@@ -29,7 +30,7 @@ public class ColleagueFinder
         Map<String, Object> params = new HashMap<String, Object>();
         params.put( "name", name );
 
-        return executionEngine.execute( cypher, params ).iterator();
+        return db.execute( cypher, params );
     }
 
     public Iterator<Map<String, Object>> findPeopleFor( String name )
@@ -47,7 +48,7 @@ public class ColleagueFinder
         Map<String, Object> params = new HashMap<String, Object>();
         params.put( "name", name );
 
-        return executionEngine.execute( cypher, params ).iterator();
+        return db.execute( cypher, params );
     }
 
     public Iterator<Map<String, Object>> findWithMatchingSkills( String name, String... skills )
@@ -68,6 +69,6 @@ public class ColleagueFinder
         params.put( "name", name );
         params.put( "skills", skills );
 
-        return executionEngine.execute( cypher, params ).iterator();
+        return db.execute( cypher, params );
     }
 }
