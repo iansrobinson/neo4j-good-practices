@@ -2,14 +2,14 @@ package org.neo4j.good_practices;
 
 public class ExampleData
 {
-    public static String smallGraph = "CREATE (ian:person {name:'Ian'}),\n" +
-            "       (bill:person {name:'Bill'}),\n" +
-            "       (lucy:person {name:'Lucy'}),\n" +
-            "       (acme:company {name:'Acme'}),\n" +
-            "       (java:skill {name:'Java'}),\n" +
-            "       (csharp:skill {name:'C#'}),\n" +
-            "       (neo4j:skill {name:'Neo4j'}),\n" +
-            "       (ruby:skill {name:'Ruby'}),\n" +
+    public static String smallGraph = "CREATE (ian:Person {name:'Ian'}),\n" +
+            "       (bill:Person {name:'Bill'}),\n" +
+            "       (lucy:Person {name:'Lucy'}),\n" +
+            "       (acme:Company {name:'Acme'}),\n" +
+            "       (java:Skill {name:'Java'}),\n" +
+            "       (csharp:Skill {name:'C#'}),\n" +
+            "       (neo4j:Skill {name:'Neo4j'}),\n" +
+            "       (ruby:Skill {name:'Ruby'}),\n" +
             "       (ian)-[:WORKS_FOR]->(acme),\n" +
             "       (bill)-[:WORKS_FOR]->(acme),\n" +
             "       (lucy)-[:WORKS_FOR]->(acme),\n" +
@@ -22,29 +22,29 @@ public class ExampleData
             "       (lucy)-[:HAS_SKILL]->(neo4j)";
 
     public static String largeGraph = "CREATE\n" +
-            "(ben:person {name:'Ben'}),\n" +
-            "(arnold:person {name:'Arnold'}),\n" +
-            "(charlie:person {name:'Charlie'}),\n" +
-            "(gordon:person {name:'Gordon'}),\n" +
-            "(lucy:person {name:'Lucy'}),\n" +
-            "(emily:person {name:'Emily'}),\n" +
-            "(ian:person {name:'Ian'}),\n" +
-            "(kate:person {name:'Kate'}),\n" +
-            "(acme:company {name:'Acme, Inc'}),\n" +
-            "(startup:company {name:'Startup, Ltd'}),\n" +
-            "(neo4j:skill {name:'Neo4j'}),\n" +  //graphs
-            "(rest:skill {name:'REST'}),\n" +
-            "(dotNet:skill {name:'DotNet'}),\n" +  //art
-            "(ruby:skill {name:'Ruby'}),\n" +  //design
-            "(sql:skill {name:'SQL'}),\n" +    // medicine
-            "(architecture:skill {name:'Architecture'}),\n" + //drama
-            "(java:skill {name:'Java'}),\n" +
-            "(python:skill {name:'Python'}),\n" +    //music
-            "(javascript:skill {name:'Javascript'}),\n" +    //cars
-            "(clojure:skill {name:'Clojure'}),\n" +    //travel
-            "(phoenix:project {name:'Phoenix'}),\n" +
-            "(quantumLeap:project {name:'Quantum Leap'}),\n" +
-            "(nextGenPlatform:project {name:'Next Gen Platform'}),\n" +
+            "(ben:Person {name:'Ben'}),\n" +
+            "(arnold:Person {name:'Arnold'}),\n" +
+            "(charlie:Person {name:'Charlie'}),\n" +
+            "(gordon:Person {name:'Gordon'}),\n" +
+            "(lucy:Person {name:'Lucy'}),\n" +
+            "(emily:Person {name:'Emily'}),\n" +
+            "(ian:Person {name:'Ian'}),\n" +
+            "(kate:Person {name:'Kate'}),\n" +
+            "(acme:Company {name:'Acme, Inc'}),\n" +
+            "(startup:Company {name:'Startup, Ltd'}),\n" +
+            "(neo4j:Skill {name:'Neo4j'}),\n" +  //graphs
+            "(rest:Skill {name:'REST'}),\n" +
+            "(dotNet:Skill {name:'DotNet'}),\n" +  //art
+            "(ruby:Skill {name:'Ruby'}),\n" +  //design
+            "(sql:Skill {name:'SQL'}),\n" +    // medicine
+            "(architecture:Skill {name:'Architecture'}),\n" + //drama
+            "(java:Skill {name:'Java'}),\n" +
+            "(python:Skill {name:'Python'}),\n" +    //music
+            "(javascript:Skill {name:'Javascript'}),\n" +    //cars
+            "(clojure:Skill {name:'Clojure'}),\n" +    //travel
+            "(phoenix:Project {name:'Phoenix'}),\n" +
+            "(quantumLeap:Project {name:'Quantum Leap'}),\n" +
+            "(nextGenPlatform:Project {name:'Next Gen Platform'}),\n" +
             "ben-[:WORKS_FOR]->acme,\n" +
             "charlie-[:WORKS_FOR]->acme,\n" +
             "lucy-[:WORKS_FOR]->acme,\n" +

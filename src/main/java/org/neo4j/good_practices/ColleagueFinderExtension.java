@@ -9,19 +9,25 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.sun.jersey.api.core.PackagesResourceConfig;
+import com.sun.jersey.spi.inject.SingletonTypeInjectableProvider;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.helpers.collection.IteratorUtil;
 
 @Path("/similar-skills")
 public class ColleagueFinderExtension
 {
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private final ColleagueFinder colleagueFinder;
 
-    public ColleagueFinderExtension( @Context GraphDatabaseService db )
+    private final ColleagueFinder colleagueFinder;
+    private final Printer printer;
+
+    public ColleagueFinderExtension( @Context GraphDatabaseService db, @Context Printer printer )
     {
         this.colleagueFinder = new ColleagueFinder( db );
+        this.printer = printer;
     }
 
     @GET
@@ -29,7 +35,10 @@ public class ColleagueFinderExtension
     @Path("/{name}")
     public Response getColleagues( @PathParam("name") String name ) throws IOException
     {
-        String json = MAPPER.writeValueAsString( colleagueFinder.findColleaguesFor( name ) );
+        printer.printLine( "GetColleagues() invoked" );
+
+        String json = MAPPER.writeValueAsString(
+                IteratorUtil.asCollection( colleagueFinder.findColleaguesFor( name ) ) );
 
         return Response.ok().entity( json ).build();
     }

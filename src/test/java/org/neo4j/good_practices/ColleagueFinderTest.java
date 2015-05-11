@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.neo4j.graphdb.Result;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -36,12 +38,12 @@ public class ColleagueFinderTest
     public void shouldFindColleaguesWithSimilarSkills() throws Exception
     {
         // when
-        Iterator<Map<String, Object>> results = finder.findColleaguesFor( "Ian" );
+        Result result = finder.findColleaguesFor( "Ian" );
 
         // then
-        assertEquals( "Lucy", results.next().get( "name" ) );
-        assertEquals( "Bill", results.next().get( "name" ) );
+        assertEquals( "Lucy", result.next().get( "name" ) );
+        assertEquals( "Bill", result.next().get( "name" ) );
 
-        assertFalse( results.hasNext() );
+        assertFalse( result.hasNext() );
     }
 }

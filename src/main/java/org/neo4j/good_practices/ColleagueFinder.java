@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.neo4j.cypher.javacompat.ExecutionEngine;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Result;
 
@@ -16,10 +17,10 @@ public class ColleagueFinder
         this.db = db;
     }
 
-    public Iterator<Map<String, Object>> findColleaguesFor( String name )
+    public Result findColleaguesFor( String name )
     {
         String cypher =
-                "MATCH (company)<-[:WORKS_FOR]-(me:person)-[:HAS_SKILL]->(skill),\n" +
+                "MATCH (company)<-[:WORKS_FOR]-(me:Person)-[:HAS_SKILL]->(skill),\n" +
                         "      (company)<-[:WORKS_FOR]-(colleague)-[:HAS_SKILL]->(skill)\n" +
                         "WHERE  me.name = {name}\n" +
                         "RETURN colleague.name AS name,\n" +
@@ -33,10 +34,10 @@ public class ColleagueFinder
         return db.execute( cypher, params );
     }
 
-    public Iterator<Map<String, Object>> findPeopleFor( String name )
+    public Result findPeopleFor( String name )
     {
         String cypher =
-                "MATCH (me:person)-[:HAS_SKILL]->(skill),\n" +
+                "MATCH (me:Person)-[:HAS_SKILL]->(skill),\n" +
                         "      (company)<-[:WORKS_FOR]-(person)-[:HAS_SKILL]->(skill)\n" +
                         "WHERE  me.name = {name}\n" +
                         "RETURN person.name AS name,\n" +
@@ -51,9 +52,9 @@ public class ColleagueFinder
         return db.execute( cypher, params );
     }
 
-    public Iterator<Map<String, Object>> findWithMatchingSkills( String name, String... skills )
+    public Result findWithMatchingSkills( String name, String... skills )
     {
-        String cypher = "MATCH p=(me:person)-[:WORKED_ON*2..4]-\n" +
+        String cypher = "MATCH p=(me:Person)-[:WORKED_ON*2..4]-\n" +
                 "        (person)-[:HAS_SKILL]->(skill)\n" +
                 "WHERE me.name = {name}\n" +
                 "      AND person <> me \n" +
